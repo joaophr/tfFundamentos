@@ -1,2 +1,2 @@
 # tfFundamentos
-Trabalho Final de fundamentos
+Trabalho Final de fundamentos. Software de gerenciamento.
