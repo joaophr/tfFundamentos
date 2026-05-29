@@ -1,13 +1,33 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static Scanner teclado = new Scanner(System.in);
 
     public static void main (String []Args) {
-        menuDisplay();
+        boolean t = serInt("Digite um int");
+        teclado.nextLine();
+        do{
+            t = serInt("Digite um int");
+            teclado.nextLine();
+        }while(t == false);
     }
 
-    //region [Métodos do Menu]
+    //region [Metodos de dados]
+    public static boolean serInt(String pergunta){
+        try{
+            System.out.println(pergunta);
+            int x = teclado.nextInt();
+            System.out.println("Verdadeiro");
+            return true;
+        }catch(InputMismatchException e){
+            System.out.println("Falso");
+            return false;
+        }
+    }
+
+//endregion
+
+//region [Metodos do Menu]
 
     public static void menuDisplay(){
         System.out.println("O que vai querer hoje?\n1 – Cadastrar aluno\n2 – Cadastrar bolsista de IC\n3 – Registrar acompanhamento do uso de IA\n4 – Listar todos os alunos\n5 – Listar bolsistas de IC\n6 – Mostrar nome mais longo\n7 – Contar vogais nos nomes cadastrados\n8 – Percentual de alunos por curso\n9 – Média de idade dos alunos\n10 – Criar ou atualizar lista de chamada\n11 – Exibir lista de chamada\n12 – Calcular risco pedagógico relacionado ao uso de IA\n13 – Exibir relatório geral de risco por aluno\n14 – Exibir alunos em risco alto\n15 – Inovação do grupo\n0 – Sair");
@@ -24,7 +44,7 @@ public class Main {
                 break;
 
             case 2:
-                //System.out.println(aluno1);
+//System.out.println(aluno1);
                 break;
 
             case 3:
@@ -90,7 +110,7 @@ public class Main {
     }
 //endregion
 
-    //region [Métodos Funções]
+    //region [Metodos Funções]
     public static void cadastrarAluno(){
         String n, l;
         int i;
