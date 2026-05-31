@@ -9,6 +9,6 @@ public class AlunoBolsistaIC {
     }
 
     public String toString(){
-        return bAluno + "\n" + bProjeto + "\n" + bOrientador + "\n";
+        return "Nome: "+ bAluno + "\n" + "Projeto: " + bProjeto + "\n" + "Orientador: " + bOrientador;
     }
 }
