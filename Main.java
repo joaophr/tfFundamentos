@@ -2,14 +2,11 @@ import java.util.*;
 
 public class Main {
     public static Scanner teclado = new Scanner(System.in);
+    static String [] alunos = {"Luigi", "João", "Braga", "Bife", "Zin"};
+    public static int qtdAlunos = alunos.length;
 
     public static void main (String []Args) {
-        boolean t = serInt("Digite um int"); // se fazer o do while direto não fica melhor?
-        teclado.nextLine();
-        do{
-            t = serInt("Digite um int");
-            teclado.nextLine();
-        }while(t == false);
+        menuDisplay();
     }
 
     //region [Metodos de tratamento de dados]
@@ -31,22 +28,22 @@ public class Main {
 
     public static void menuDisplay(){
         System.out.println("O que vai querer hoje?\n" + // quebra de linha em todas opções pra melhor visualização no código
-                "1 – Cadastrar aluno\n" +
-                "2 – Cadastrar bolsista de IC\n" +
-                "3 – Registrar acompanhamento do uso de IA\n" +
-                "4 – Listar todos os alunos\n" +
-                "5 – Listar bolsistas de IC\n" +
-                "6 – Mostrar nome mais longo\n" +
-                "7 – Contar vogais nos nomes cadastrados\n" +
-                "8 – Percentual de alunos por curso\n" +
-                "9 – Média de idade dos alunos\n" +
-                "10 – Criar ou atualizar lista de chamada\n" +
-                "11 – Exibir lista de chamada\n" +
-                "12 – Calcular risco pedagógico relacionado ao uso de IA\n" +
-                "13 – Exibir relatório geral de risco por aluno\n" +
-                "14 – Exibir alunos em risco alto\n" +
-                "15 – Inovação do grupo\n" +
-                "16 – Sair");
+                "1 - Cadastrar aluno\n" +
+                "2 - Cadastrar bolsista de IC\n" +
+                "3 - Registrar acompanhamento do uso de IA\n" +
+                "4 - Listar todos os alunos\n" +
+                "5 - Listar bolsistas de IC\n" +
+                "6 - Mostrar nome mais longo\n" +
+                "7 - Contar vogais nos nomes cadastrados\n" +
+                "8 - Percentual de alunos por curso\n" +
+                "9 - Média de idade dos alunos\n" +
+                "10 - Criar ou atualizar lista de chamada\n" +
+                "11 - Exibir lista de chamada\n" +
+                "12 - Calcular risco pedagógico relacionado ao uso de IA\n" +
+                "13 - Exibir relatório geral de risco por aluno\n" +
+                "14 - Exibir alunos em risco alto\n" +
+                "15 - Inovação do grupo\n" +
+                "16 - Sair");
         int menu = teclado.nextInt();
         teclado.nextLine();
         menuOpcao(menu);
@@ -67,7 +64,7 @@ public class Main {
                 break;
 
             case 4:
-                System.out.println("Listar todos os alunos");
+                listarAlunos();
                 break;
 
             case 5:
@@ -124,18 +121,24 @@ public class Main {
         }
     }
 
+    public static void listarAlunos(){
+        System.out.println("Aqui está a lista de todos os alunos cadastrados: ");
+        for (int i = 0; i < qtdAlunos; i++) {
+            System.out.println(i + "- " + alunos[i]);
+        }
+    }
 
 //endregion
     //region [Metodos Funções]
 
     public static void menuAlunos () {
-        for (int i = 0; i < Aluno.tam; i++) {
-            System.out.print (i + "- " + Aluno.alunos[i]);
+        for (int i = 0; i < qtdAlunos; i++) {
+            System.out.print (i + " - " + alunos[i]);
         }
     }
 
     public static void cadastrarAluno(){
-        String n, l;
+        String n, l, m;
         int i;
         System.out.print("O nome do aluno que deseja cadastrar: ");
         n = teclado.nextLine();
@@ -144,8 +147,11 @@ public class Main {
         System.out.print("O local de nascimento do aluno que deseja cadastrar: ");
         teclado.nextLine();
         l = teclado.nextLine();
+        System.out.print("A matricula do aluno que deseja cadastrar: ");
+        teclado.nextLine();
+        m = teclado.nextLine();
 
-        Aluno aluno1 = new Aluno(n, i, l);
+        Aluno aluno1 = new Aluno(n, i, l, m);
 
         System.out.println("Muito obrigado pelo cadastro!\n");
         int aux;
@@ -166,13 +172,13 @@ public class Main {
         int x;
         System.out.print("Qual aluno você deseja cadastrar?\n");
         menuAlunos();
-        x = teclado.nextInt();
+        //x = teclado.nextInt();
         System.out.print("O nome do projeto que você deseja cadastrar: ");
         p = teclado.nextLine();
         System.out.print("O nome do orientador do aluno que você deseja cadastrar: ");
         o = teclado.nextLine();
 
-        AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(x, p, o); // arrumar erro
+        //AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(x, p, o); // arrumar erro
 
         System.out.println("Muito obrigado pelo cadastro!\n");
         int aux;
