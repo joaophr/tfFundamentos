@@ -1,12 +1,12 @@
 public class Aluno {
-    String aNome, aLocalNasc;
+    String aNome, aLocalNasc, aMatricula;
     int aIdade;
-    static String [] alunos = {"Luigi", "João", "Braga", "Bife", "Zin"};
-    static int tam = alunos.length;
-    public Aluno(String pNome, int pIdade, String pLocalNasc){
+
+    public Aluno(String pNome, int pIdade, String pLocalNasc, String pMatricula){
         aNome = pNome;
         aIdade = pIdade;
         aLocalNasc = pLocalNasc;
+        aMatricula = pMatricula;
     }
 
     public String toString(){
