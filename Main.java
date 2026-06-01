@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Main {
     public static Scanner teclado = new Scanner(System.in);
-    static String [] alunos = {"Luigi", "João", "Braga", "Bife", "Zin"};
+    static Aluno [] alunos = new Aluno[5];
     public static int qtdAlunos = alunos.length;
 
     public static void main (String []Args) {
@@ -152,6 +152,7 @@ public class Main {
         m = teclado.nextLine();
 
         Aluno aluno1 = new Aluno(n, i, l, m);
+        // inserirAluno(aluno1);
 
         System.out.println("Muito obrigado pelo cadastro!\n");
         int aux;
