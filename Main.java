@@ -2,8 +2,6 @@ import java.util.*;
 
 public class Main {
     public static Scanner teclado = new Scanner(System.in);
-    static Aluno [] alunos = new Aluno[5];
-    public static int qtdAlunos = alunos.length;
 
     public static void main (String []Args) {
         menuDisplay();
@@ -123,8 +121,8 @@ public class Main {
 
     public static void listarAlunos(){
         System.out.println("Aqui está a lista de todos os alunos cadastrados: ");
-        for (int i = 0; i < qtdAlunos; i++) {
-            System.out.println(i + "- " + alunos[i]);
+        for (int i = 0; i < Aluno.qtdAlunos; i++) {
+            System.out.println(i + "- " + Aluno.alunos[i]);
         }
     }
 
@@ -132,41 +130,54 @@ public class Main {
     //region [Metodos Funções]
 
     public static void menuAlunos () {
-        for (int i = 0; i < qtdAlunos; i++) {
-            System.out.print (i + " - " + alunos[i]);
+        for (int i = 0; i < Aluno.qtdAlunos; i++) {
+            System.out.print (i + " - " + Aluno.alunos[i]);
         }
     }
 
     public static void cadastrarAluno(){
-        String n, l, m;
-        int i;
-        System.out.print("O nome do aluno que deseja cadastrar: ");
-        n = teclado.nextLine();
-        System.out.print("A idade do aluno que deseja cadastrar: ");
-        i = teclado.nextInt();
-        System.out.print("O local de nascimento do aluno que deseja cadastrar: ");
-        teclado.nextLine();
-        l = teclado.nextLine();
-        System.out.print("A matricula do aluno que deseja cadastrar: ");
-        teclado.nextLine();
-        m = teclado.nextLine();
+        Aluno a;
+        String c, m, aux;
+        int ano, s;
+        boolean ic = false;
 
-        Aluno aluno1 = new Aluno(n, i, l, m);
+        System.out.print("O nome do aluno que deseja cadastrar: ");
+        // usar menu pra escolher o aluno a = teclado.nextLine();
+        System.out.print("O curso do aluno que deseja cadastrar: ");
+        c = teclado.nextLine();
+        System.out.print("O número de matrícula do aluno que deseja cadastrar: ");
+        m = teclado.nextLine();
+        System.out.print("O ano que o aluno que você deseja cadastrar está na faculdade: ");
+        ano = teclado.nextInt();
+        System.out.println("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
+        s = teclado.nextInt();
+        System.out.println("O aluno que você deseja cadastrar é bolsista de Iniciação científica? (s/n) ");
+        aux = teclado.nextLine().toLowerCase().strip();
+        if (aux.equals("s")) {
+            ic = true;
+        } else if (aux.equals("n")) {
+            ic = false;
+        } else {
+            System.out.println("Opção inválida, tente novamente!");
+            cadastrarAluno();
+        }
+
+        Aluno aluno1 = new Aluno(a, c, m, ano, s, ic);
         // inserirAluno(aluno1);
 
         System.out.println("Muito obrigado pelo cadastro!\n");
-        int aux;
+        int aux2;
         do {
             System.out.println("Se você deseja voltar ao menu, digite 1, se você deseja sair digite 0.");
-            aux = teclado.nextInt();
-            if (aux == 1) {
+            aux2 = teclado.nextInt();
+            if (aux2 == 1) {
                 menuDisplay();
             }
-            else if(aux == 0){
+            else if(aux2 == 0){
                 System.out.println("Até mais");
                 break;
             }
-        } while (aux != 1);
+        } while (aux2 != 1);
     }
     public static void cadastrarBolsistaIC(){
         String p, o;

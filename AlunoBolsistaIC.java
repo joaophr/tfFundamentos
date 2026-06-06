@@ -1,14 +1,38 @@
 public class AlunoBolsistaIC {
-    Aluno bAluno;
-    String bProjeto, bOrientador;
+    Aluno aAluno;
+    String aProjeto, aOrientador;
 
     public AlunoBolsistaIC(Aluno pAluno, String pProjeto, String pOrientador){
-        bAluno = pAluno;
-        bProjeto = pProjeto;
-        bOrientador = pOrientador;
+        aAluno = pAluno;
+        aProjeto = pProjeto;
+        aOrientador = pOrientador;
+    }
+
+    public Aluno getAluno() {
+        return aAluno;
+    }
+
+    public void setNome(Aluno aluno) {
+        aAluno = aluno;
+    }
+
+    public String getProjeto() {
+        return aProjeto;
+    }
+
+    public void setProjeto(String projeto) {
+        aProjeto = projeto;
+    }
+
+    public String getOrientador() {
+        return aOrientador;
+    }
+
+    public void setOrientador(String orientador) {
+        aOrientador = orientador;
     }
 
     public String toString(){
-        return "Nome: "+ bAluno + "\n" + "Projeto: " + bProjeto + "\n" + "Orientador: " + bOrientador;
+        return "Nome: "+ aAluno + "\n" + "Projeto: " + aProjeto + "\n" + "Orientador: " + aOrientador;
     }
 }
