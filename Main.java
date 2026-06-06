@@ -136,13 +136,14 @@ public class Main {
     }
 
     public static void cadastrarAluno(){
-        Aluno a;
+        Pessoa a;
         String c, m, aux;
         int ano, s;
         boolean ic = false;
 
-        System.out.print("O nome do aluno que deseja cadastrar: ");
-        // usar menu pra escolher o aluno a = teclado.nextLine();
+        System.out.print("Qual pessoa você deseja cadastrar como aluno? ");
+        // usar menu pra escolher a pessoa
+        // a = teclado.nextLine();
         System.out.print("O curso do aluno que deseja cadastrar: ");
         c = teclado.nextLine();
         System.out.print("O número de matrícula do aluno que deseja cadastrar: ");

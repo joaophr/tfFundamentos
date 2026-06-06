@@ -2,6 +2,9 @@ public class Pessoa {
     String aNome, aLocalNasc;
     int aIdade;
 
+    Pessoa [] pessoas = new Pessoa[5]; // ver onde armazenar isso
+    int qtdPessoas = pessoas.length; // ver onde armazenar isso
+
     public Pessoa(String pNome, int pIdade, String pLocalNasc){
             aNome = pNome;
             aIdade = pIdade;

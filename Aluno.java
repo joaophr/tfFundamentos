@@ -6,6 +6,7 @@ public class Aluno {
 
     Aluno [] alunos = new Aluno[5]; // ver onde armazenar isso
     int qtdAlunos = alunos.length; //  ver onde armazenar isso
+
     public Aluno(Pessoa pPessoa, String pCurso, String pMatricula, int pSemestre, int pAno, boolean pEIc){
         aPessoa = pPessoa;
         aCurso = pCurso;
