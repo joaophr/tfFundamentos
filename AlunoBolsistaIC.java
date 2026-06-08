@@ -8,29 +8,14 @@ public class AlunoBolsistaIC {
         aOrientador = pOrientador;
     }
 
-    public Aluno getAluno() {
-        return aAluno;
-    }
-
-    public void setNome(Aluno aluno) {
-        aAluno = aluno;
-    }
-
-    public String getProjeto() {
-        return aProjeto;
-    }
-
-    public void setProjeto(String projeto) {
-        aProjeto = projeto;
-    }
-
-    public String getOrientador() {
-        return aOrientador;
-    }
-
-    public void setOrientador(String orientador) {
-        aOrientador = orientador;
-    }
+    //region [Gets e Sets]
+    public Aluno getAluno(){return aAluno;}
+    public void setNome(Aluno aluno){aAluno = aluno;}
+    public String getProjeto(){return aProjeto;}
+    public void setProjeto(String projeto){aProjeto = projeto;}
+    public String getOrientador(){return aOrientador;}
+    public void setOrientador(String orientador){aOrientador = orientador;}
+    //endregion
 
     public String toString(){
         return "Nome: "+ aAluno + "\n" + "Projeto: " + aProjeto + "\n" + "Orientador: " + aOrientador;
