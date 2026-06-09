@@ -2,41 +2,33 @@ import java.util.Scanner;
 
 public class Turma{
     public static Scanner teclado = new Scanner(System.in);
-    Pessoa[] pessoas = new Pessoa[10];
+    Pessoa[] pessoas;
     Aluno[] alunos;
     AlunoBolsistaIC[] bolsistas;
     int qtdPessoas;
     int qtdAlunos;
     int qtdBolsistas;
-    Pessoa p1 = new Pessoa("marcos", 23, "poa");
+   
 
     public Turma(int tam){
-        pessoas[0] = p1;
-        //pessoas = new Pessoa[tam];
+        pessoas = new Pessoa[tam];
         alunos = new Aluno[tam];
         bolsistas = new AlunoBolsistaIC[tam];
+        qtdPessoas = 0;
+        qtdAlunos = 0;
+        qtdBolsistas = 0;
     }
 
     //Funções pessoa
-    public void cadastrarPessoa(){
-        String n, l;
-        int i;
-
-        System.out.println("Qual o nome da pessoa que deseja cadastrar? ");
-        n = teclado.nextLine();
-        System.out.println("Qual a idade da pessoa que deseja cadastrar? ");
-        i = teclado.nextInt();
-        teclado.nextLine();
-        System.out.println("Qual o local de nascimento da pessoa que deseja cadastrar? ");
-        l = teclado.nextLine();
-
+    public void cadastrarPessoa(String n, String l, int i){
         Pessoa p1 = new Pessoa(n, i, l);
         inserirPessoa(p1);
+        qtdPessoas++;
        
         System.out.println("Muito obrigado pelo cadastro!\n");
     }
 
-    private Pessoa pessoaExiste(String nome){
+    public Pessoa pessoaExiste(String nome){
         for(Pessoa i: pessoas){
             if(i != null && i.getNome().equals(nome)){
                 return i;
@@ -48,13 +40,16 @@ public class Turma{
 
    
     private void inserirPessoa(Pessoa p){
-        for(int i = 0; i < pessoas.length; i++){
-            if(pessoas[i] == null){
-                pessoas[i] = p;
-                break;
+        if(qtdPessoas == pessoas.length){
+            Pessoa[] pessoasAux = new Pessoa[pessoas.length + 1];
+            for(int i = 0; i < pessoas.length; i++){
+                pessoasAux[i] = pessoas[i];
             }
+            pessoasAux[pessoas.length] = p;
+            this.pessoas = pessoasAux;
+        }else{
+            pessoas[qtdPessoas] = p;
         }
-        System.out.println("Já há pessoas o bastante na turma.");
     }
 
     public void listarPessoas(){
@@ -64,30 +59,10 @@ public class Turma{
     }
 
     //Funções aluno
-    public void cadastrarAluno(){
-        Pessoa p;
-        String c, m;
-        int ano, s;
-        boolean ic = false;
-
-        System.out.print("Qual pessoa você deseja cadastrar como aluno? ");
-        String nome;
-        do{
-            nome = teclado.nextLine();
-            p = pessoaExiste(nome);
-        }while(p == null);
-        System.out.print("O curso do aluno que deseja cadastrar: ");
-        c = teclado.nextLine();
-        System.out.print("O número de matrícula do aluno que deseja cadastrar: ");
-        m = teclado.nextLine();
-        System.out.print("O ano que o aluno que você deseja cadastrar está na faculdade: ");
-        ano = teclado.nextInt();
-        System.out.println("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
-        s = teclado.nextInt();
-        //System.out.println("O aluno que você deseja cadastrar é bolsista de Iniciação científica? (s/n) ");
-        //aux = teclado.nextLine().toLowerCase().strip();
-
-        Aluno aluno1 = new Aluno(p, c, m, ano, s, ic);
+    public void cadastrarAluno(Pessoa p, String c, String m, int ano, int s, boolean ic){
+        Aluno a1 = new Aluno(p, c, m, ano, s, ic);
+        qtdAlunos++;
+        inserirAluno(a1);
 
         System.out.println("Muito obrigado pelo cadastro!\n");
     }
@@ -100,6 +75,19 @@ public class Turma{
         }
         System.out.println("Este aluno nao existe. Tente novamente!");
         return null;
+    }
+
+    private void inserirAluno(Aluno p){
+        if(qtdAlunos == alunos.length){
+            Aluno[] alunosAux = new Aluno[alunos.length + 1];
+            for(int i = 0; i < alunos.length; i++){
+                alunosAux[i] = alunos[i];
+            }
+            alunosAux[alunos.length] = p;
+            this.alunos = alunosAux;
+        }else{
+            alunos[qtdAlunos] = p;
+        }
     }
 
     //Funções bolsista
