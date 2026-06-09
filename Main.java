@@ -5,6 +5,7 @@ public class Main {
     public static Turma turmaGiraffa = new Turma(10);
     public static void main (String []Args) {
         boolean cont;
+        turmaGiraffa.cadastrarPessoa("marcos", "poa", 20);
         do{
             cont = menuDisplay();
         }while(cont);
@@ -41,7 +42,13 @@ public class Main {
     public static boolean menuOpcao(int x){
         switch(x){
             case 1:
-                turmaGiraffa.cadastrarPessoa();
+                System.out.print("nome: ");
+                String n = teclado.nextLine();
+                System.out.print("local: ");
+                String l = teclado.nextLine();
+                System.out.print("idade: ");
+                int i = teclado.nextInt();
+                turmaGiraffa.cadastrarPessoa(n, l, i);
                 return true;
 
             case 2:
@@ -49,7 +56,37 @@ public class Main {
                 return true;
 
             case 3:
-                turmaGiraffa.cadastrarAluno();
+                Pessoa p;
+                String c, m;
+                int ano, s;
+                char aux;
+                boolean ic = false;
+
+                System.out.print("Qual pessoa você deseja cadastrar como aluno? ");
+                String nome;
+                do{
+                    nome = teclado.nextLine();
+                    p = turmaGiraffa.pessoaExiste(nome);
+                }while(p == null);
+                System.out.print("O curso do aluno que deseja cadastrar: ");
+                c = teclado.nextLine();
+                System.out.print("O número de matrícula do aluno que deseja cadastrar: ");
+                m = teclado.nextLine();
+                System.out.print("O ano que o aluno que você deseja cadastrar está na faculdade: ");
+                ano = teclado.nextInt();
+                System.out.println("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
+                s = teclado.nextInt();
+                teclado.nextLine();
+                do{
+                    System.out.println("IC: (s/n)");
+                    aux = teclado.nextLine().toLowerCase().charAt(0);
+                    if(aux == 's'){
+                        ic = true;
+                    }else if(aux == 'n'){
+                        ic = false;
+                    }
+                }while(aux != 's' && aux != 'n');
+                turmaGiraffa.cadastrarAluno(p, c, m, ano, s, ic);
                 return true;
 
             case 4:
@@ -77,7 +114,7 @@ public class Main {
                 return true;
 
             case 10:
-                System.out.println("Listar todos os bolsistas de IC");
+                System.out.println("Listar todos os bolsistas de IC"); //tirar
                 return true;
 
             case 11:
