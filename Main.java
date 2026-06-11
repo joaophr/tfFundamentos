@@ -13,27 +13,27 @@ public class Main {
 
     public static boolean menuDisplay(){
         System.out.println("O que vai querer hoje?\n" + // quebra de linha em todas opções pra melhor visualização no código
-        "1 - Cadastrar pessoa\n" +
-        "2 - Modificar pessoa\n" +
-        "3 - Cadastrar aluno\n" +
-        "4 - Modificar Aluno\n" +
-        "5 - Cadastrar bolsista de IC\n" +
-        "6 - Modificar bolsista de IC\n" +
-        "7 - Registrar acompanhamento do uso de IA\n" +
-        "8 - Modificar acompanhamento do uso de IA\n" +
-        "9 - Listar\n" + //perguntar: listar o que, pessoas, alunos, bolsistas...
-        "10 - Listar bolsistas de IC\n" + //retirar esta opção
-        "11 - Mostrar nome mais longo\n" +
-        "12 - Contar vogais nos nomes cadastrados\n" +
-        "13 - Percentual de alunos por curso\n" +
-        "14 - Média de idade dos alunos\n" +
-        "15 - Criar ou atualizar lista de chamada\n" +
-        "16 - Exibir lista de chamada\n" +
-        "17 - Calcular risco pedagógico relacionado ao uso de IA\n" +
-        "18 - Exibir relatório geral de risco por aluno\n" +
-        "19 - Exibir alunos em risco alto\n" +
-        "20 - Inovação do grupo\n" +
-        "0 - Sair");
+                "1 - Cadastrar pessoa\n" +
+                "2 - Modificar pessoa\n" +
+                "3 - Cadastrar aluno\n" +
+                "4 - Modificar Aluno\n" +
+                "5 - Cadastrar bolsista de IC\n" +
+                "6 - Modificar bolsista de IC\n" +
+                "7 - Registrar acompanhamento do uso de IA\n" +
+                "8 - Modificar acompanhamento do uso de IA\n" +
+                "9 - Listar\n" + //perguntar: listar o que, pessoas, alunos, bolsistas...
+                "10 - Listar bolsistas de IC\n" + //retirar esta opção
+                "11 - Mostrar nome mais longo\n" +
+                "12 - Contar vogais nos nomes cadastrados\n" +
+                "13 - Percentual de alunos por curso\n" +
+                "14 - Média de idade dos alunos\n" +
+                "15 - Criar ou atualizar lista de chamada\n" +
+                "16 - Exibir lista de chamada\n" +
+                "17 - Calcular risco pedagógico relacionado ao uso de IA\n" +
+                "18 - Exibir relatório geral de risco por aluno\n" +
+                "19 - Exibir alunos em risco alto\n" +
+                "20 - Inovação do grupo\n" +
+                "0 - Sair");
         int menu = teclado.nextInt();
         teclado.nextLine();
         return menuOpcao(menu);
@@ -62,19 +62,21 @@ public class Main {
                 char aux;
                 boolean ic = false;
 
-                System.out.print("Qual pessoa você deseja cadastrar como aluno? ");
-                String nome;
+                System.out.println("Qual pessoa você deseja cadastrar como aluno?\n Digite o número correspondente a ele.");
+                int nome;
                 do{
-                    nome = teclado.nextLine();
-                    p = turmaGiraffa.pessoaExiste(nome);
+                    turmaGiraffa.listarPessoas();
+                    nome = teclado.nextInt();
+                    p = turmaGiraffa.pessoaExiste(turmaGiraffa.pessoas[nome - 1].getNome());
                 }while(p == null);
                 System.out.print("O curso do aluno que deseja cadastrar: ");
+                teclado.nextLine();
                 c = teclado.nextLine();
                 System.out.print("O número de matrícula do aluno que deseja cadastrar: ");
                 m = teclado.nextLine();
                 System.out.print("O ano que o aluno que você deseja cadastrar está na faculdade: ");
                 ano = teclado.nextInt();
-                System.out.println("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
+                System.out.print("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
                 s = teclado.nextInt();
                 teclado.nextLine();
                 do{
@@ -86,7 +88,7 @@ public class Main {
                         ic = false;
                     }
                 }while(aux != 's' && aux != 'n');
-                turmaGiraffa.cadastrarAluno(p, c, m, ano, s, ic);
+                turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[nome - 1], c, m, ano, s, ic);
                 return true;
 
             case 4:
@@ -110,7 +112,7 @@ public class Main {
                 return true;
 
             case 9:
-                turmaGiraffa.listarPessoas();
+                turmaGiraffa.listarPessoas(); // ver se não ficaria melhor listar Alunos, pode ser pessoa mas pode não ser aluno
                 return true;
 
             case 10:

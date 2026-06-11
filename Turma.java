@@ -8,7 +8,7 @@ public class Turma{
     int qtdPessoas;
     int qtdAlunos;
     int qtdBolsistas;
-   
+
 
     public Turma(int tam){
         pessoas = new Pessoa[tam];
@@ -24,7 +24,7 @@ public class Turma{
         Pessoa p1 = new Pessoa(n, i, l);
         inserirPessoa(p1);
         qtdPessoas++;
-       
+
         System.out.println("Muito obrigado pelo cadastro!\n");
     }
 
@@ -38,7 +38,7 @@ public class Turma{
         return null;
     }
 
-   
+
     private void inserirPessoa(Pessoa p){
         if(qtdPessoas == pessoas.length){
             Pessoa[] pessoasAux = new Pessoa[pessoas.length + 1];
@@ -53,16 +53,16 @@ public class Turma{
     }
 
     public void listarPessoas(){
-        for(Pessoa j : pessoas){
-            if(j != null){System.out.println(j.getNome());}
+        for(int i = 0; i < qtdPessoas;i++){
+                System.out.println((i + 1) + " - " + pessoas[i].getNome());
         }
     }
 
     //Funções aluno
     public void cadastrarAluno(Pessoa p, String c, String m, int ano, int s, boolean ic){
         Aluno a1 = new Aluno(p, c, m, ano, s, ic);
-        qtdAlunos++;
         inserirAluno(a1);
+        qtdAlunos++;
 
         System.out.println("Muito obrigado pelo cadastro!\n");
     }
@@ -90,26 +90,49 @@ public class Turma{
         }
     }
 
+    private void listarAluno() {
+        for (int i = 0; i < qtdAlunos; i++) {
+            System.out.println(i+1 + " - " + alunos[i].getPessoa().getNome());
+        }
+    }
+
     //Funções bolsista
     public void cadastrarBolsistaIC(){
-        Aluno n;
         String p, o;
-        System.out.print("Qual aluno você deseja cadastrar?\n");
-        String nome;
-        do{
-            nome = teclado.nextLine();
-            n = alunoExiste(nome);
-        }while(n == null);
+        int aux;
+        System.out.println("Qual aluno você deseja cadastrar?\n Digite o número correspondente a ele.");
+        do {
+            listarAluno();
+            aux = teclado.nextInt();
+            if (alunos[aux-1].getEIc() == false) {
+                System.out.println("Esse aluno não é bolsista, não pode ser cadastrado.\n");
+                return;
+            }
+        } while ((aux > 0 && aux < alunos.length) && (alunos[aux-1] == null));
         System.out.print("O nome do projeto que você deseja cadastrar: ");
+        teclado.nextLine();
         p = teclado.nextLine();
         System.out.print("O nome do orientador do aluno que você deseja cadastrar: ");
         o = teclado.nextLine();
 
-        //AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(x, p, o); // arrumar erro
-
+        AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(alunos[aux-1], p, o);
+        inserirAlunoBolsista(alunoIc1);
         System.out.println("Muito obrigado pelo cadastro!\n");
     }
-   
+
+    private void inserirAlunoBolsista(AlunoBolsistaIC x){
+        if(qtdBolsistas == bolsistas.length){
+            AlunoBolsistaIC[] bolsistaAux = new AlunoBolsistaIC[bolsistas.length + 1];
+            for(int i = 0; i < bolsistas.length; i++){
+                bolsistaAux[i] = bolsistas[i];
+            }
+            bolsistas[alunos.length] = x;
+            this.bolsistas = bolsistaAux;
+        }else{
+            bolsistas[qtdBolsistas] = x;
+        }
+    }
+
     //region [Gets]
     public int getQtdPessoas(){return qtdPessoas;}
     public int getQtdAlunos(){return qtdAlunos;}
