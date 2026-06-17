@@ -90,33 +90,17 @@ public class Turma{
         }
     }
 
-    private void listarAluno() {
+    public void listarAluno() {
         for (int i = 0; i < qtdAlunos; i++) {
             System.out.println(i+1 + " - " + alunos[i].getPessoa().getNome());
         }
     }
 
     //Funções bolsista
-    public void cadastrarBolsistaIC(){
-        String p, o;
-        int aux;
-        System.out.println("Qual aluno você deseja cadastrar?\n Digite o número correspondente a ele.");
-        do {
-            listarAluno();
-            aux = teclado.nextInt();
-            if (alunos[aux-1].getEIc() == false) {
-                System.out.println("Esse aluno não é bolsista, não pode ser cadastrado.\n");
-                return;
-            }
-        } while ((aux > 0 && aux < alunos.length) && (alunos[aux-1] == null));
-        System.out.print("O nome do projeto que você deseja cadastrar: ");
-        teclado.nextLine();
-        p = teclado.nextLine();
-        System.out.print("O nome do orientador do aluno que você deseja cadastrar: ");
-        o = teclado.nextLine();
-
-        AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(alunos[aux-1], p, o);
+    public void cadastrarBolsistaIC(Aluno paluno, String pProjeto, String pOrientador ){
+        AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(paluno, pProjeto, pOrientador);
         inserirAlunoBolsista(alunoIc1);
+        qtdBolsistas++;
         System.out.println("Muito obrigado pelo cadastro!\n");
     }
 
@@ -133,9 +117,33 @@ public class Turma{
         }
     }
 
+    public void listarBolsistas(){
+        for(int i = 0; i < qtdBolsistas;i++){
+            System.out.println((i + 1) + " - " + bolsistas[i].getAluno().getPessoa().getNome());
+        }
+    }
+
+
     //region [Gets]
     public int getQtdPessoas(){return qtdPessoas;}
     public int getQtdAlunos(){return qtdAlunos;}
     public int getQtdBolsistas(){return qtdBolsistas;}
     //endregion
+    
+    
+    public String nomeLongo() {
+        int aux = 0;
+        String aux2 = "Não Existe";
+        for (Aluno al : alunos) {
+            if (al == null) {
+             break;
+            }
+            if (al.getPessoa().getNome().length() > aux) {
+                aux = al.getPessoa().getNome().length();
+                aux2 = al.getPessoa().getNome();
+            }
+        }
+        return aux2;
+    }
 }
+
