@@ -24,8 +24,6 @@ public class Turma{
         Pessoa p1 = new Pessoa(n, i, l);
         inserirPessoa(p1);
         qtdPessoas++;
-
-        System.out.println("Muito obrigado pelo cadastro!\n");
     }
 
     public Pessoa pessoaExiste(String nome){
@@ -52,6 +50,12 @@ public class Turma{
         }
     }
 
+    public void modificarPessoa(Pessoa p, String novoNome, String novoLocal, int novaIdade){
+        p.setNome(novoNome);
+        p.setIdade(novaIdade);
+        p.setLocalNasc(novoLocal);
+    }
+
     public void listarPessoas(){
         for(int i = 0; i < qtdPessoas;i++){
                 System.out.println((i + 1) + " - " + pessoas[i].getNome());
@@ -63,11 +67,9 @@ public class Turma{
         Aluno a1 = new Aluno(p, c, m, ano, s, ic);
         inserirAluno(a1);
         qtdAlunos++;
-
-        System.out.println("Muito obrigado pelo cadastro!\n");
     }
 
-    private Aluno alunoExiste(String nome){
+    public Aluno alunoExiste(String nome){
         for(Aluno i: alunos){
             if(i != null && i.getPessoa().getNome().equals(nome)){
                 return i;
@@ -101,7 +103,6 @@ public class Turma{
         AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(paluno, pProjeto, pOrientador);
         inserirAlunoBolsista(alunoIc1);
         qtdBolsistas++;
-        System.out.println("Muito obrigado pelo cadastro!\n");
     }
 
     private void inserirAlunoBolsista(AlunoBolsistaIC x){
@@ -129,8 +130,8 @@ public class Turma{
     public int getQtdAlunos(){return qtdAlunos;}
     public int getQtdBolsistas(){return qtdBolsistas;}
     //endregion
-    
-    
+   
+   
     public String nomeLongo() {
         int aux = 0;
         String aux2 = "Não Existe";
@@ -146,4 +147,3 @@ public class Turma{
         return aux2;
     }
 }
-
