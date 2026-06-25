@@ -1,7 +1,4 @@
-import java.util.Scanner;
-
 public class Turma{
-    public static Scanner teclado = new Scanner(System.in);
     Pessoa[] pessoas;
     Aluno[] alunos;
     AlunoBolsistaIC[] bolsistas;
@@ -111,7 +108,7 @@ public class Turma{
             for(int i = 0; i < bolsistas.length; i++){
                 bolsistaAux[i] = bolsistas[i];
             }
-            bolsistas[alunos.length] = x;
+            bolsistas[bolsistas.length] = x;
             this.bolsistas = bolsistaAux;
         }else{
             bolsistas[qtdBolsistas] = x;
