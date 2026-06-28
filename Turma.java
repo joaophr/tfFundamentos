@@ -128,7 +128,7 @@ public class Turma{
     public int getQtdBolsistas(){return qtdBolsistas;}
     //endregion
    
-   
+   //region [específicos]
     public String nomeLongo() {
         int aux = 0;
         String aux2 = "Não Existe";
@@ -143,4 +143,50 @@ public class Turma{
         }
         return aux2;
     }
+
+    public double mediaIdade() {
+        int soma = 0;
+        for (Aluno aluno: alunos){
+            soma += aluno.getPessoa().getIdade();
+        }
+        return (double) soma / alunos.length;
+    }
+
+    public int contVogal() {
+        int qtdVogais = 0;
+        String vogais = "aeiou";
+
+        for (Pessoa pessoa : pessoas) {
+            String nome = pessoa.getNome().toLowerCase();
+            for (int i = 0; i < nome.length(); i++) {
+                if (vogais.contains(String.valueOf(nome.charAt(i)))) { // converte o char pra string pra comparar
+                    qtdVogais++;
+                }
+            }
+        }
+        return qtdVogais;
+    }
+
+    public void qtdPorCurso() {
+        int cc = 0, es = 0, ec = 0, si = 0, cdIa = 0;
+        for (Aluno aluno: alunos) {
+            if (aluno.getCurso().equals("Ciência da Computação")) {
+                cc++;
+            } else if (aluno.getCurso().equals("Engenharia de Software")) {
+                es++;
+            } else if (aluno.getCurso().equals("Engenharia da Computação")) {
+                ec++;
+            } else if (aluno.getCurso().equals("Sistemas de Informação")) {
+                si++;
+            } else if (aluno.getCurso().equals("Ciência de Dados e Inteligência Artificial")) {
+                cdIa++;
+            }
+        }
+        System.out.println("O percentual de alunos que cursam Ciência da Computação é: " + (double) cc / qtdAlunos * 100 + "%");
+        System.out.println("O percentual de alunos que cursam Engenharia de Software é: " + (double) es / qtdAlunos * 100 + "%");
+        System.out.println("O percentual de alunos que cursam Engenharia da Computação é: " + (double) ec / qtdAlunos * 100 + "%");
+        System.out.println("O percentual de alunos que cursam Sistemas de Informação é: " + (double) si / qtdAlunos * 100 + "%");
+        System.out.println("O percentual de alunos que cursam Ciência de dados e Inteligência Artificial é: " + (double) cdIa / qtdAlunos * 100 + "%");
+    }
+
 }

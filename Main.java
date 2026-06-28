@@ -12,11 +12,11 @@ public class Main {
         turmaGiraffa.cadastrarPessoa("Joao", "Porto Alegre", 19);
         turmaGiraffa.cadastrarPessoa("Luigi", "Nova Araçá", 18);
 
-        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[0], "Ciência da computação", "00001", 1983, 0, false);
-        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[1], "Ciência da computação", "00002", 2018, 0, true);
+        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[0], "Ciência da Computação", "00001", 1983, 0, false);
+        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[1], "Ciência da Computação", "00002", 2018, 0, true);
         turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[2], "Matemática", "00003", 1975, 0, false);
-        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[3], "Ciência da computação", "00004", 2026, 1, true);
-        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[4], "Ciência da computação", "00005", 2026, 1, false);
+        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[3], "Ciência da Computação", "00004", 2026, 1, true);
+        turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[4], "Ciência da Computação", "00005", 2026, 1, false);
         //endregion
         do{
             cont = menuDisplay();
@@ -94,25 +94,52 @@ public class Main {
             case 3:
                 System.out.print("============================================\n");
                 Pessoa p;
-                String c, m;
-                int ano, s;
+                String m, curso;
+                int ano, s, c;
                 char aux;
                 boolean ic = false;
 
                 System.out.print("Qual pessoa você deseja cadastrar como aluno?\n Digite o número correspondente a ele.");
                 int nome;
                 do {
+                    System.out.println();
                     turmaGiraffa.listarPessoas();
                     nome = teclado.nextInt();
                     teclado.nextLine();
                     p = turmaGiraffa.pessoaExiste(turmaGiraffa.pessoas[nome - 1].getNome());
                 } while (p == null);
-                System.out.print("O curso do aluno que deseja cadastrar: ");
-                teclado.nextLine();
-                c = teclado.nextLine();
+                System.out.print("O curso do aluno que deseja cadastrar:\n " +
+                        "Ciência da Computação = 1\n" +
+                        "Engenharia de Software = 2\n" +
+                        "Engenharia da Computação = 3\n" +
+                        "Sistemas de Informação = 4\n" +
+                        "Ciência de Dados e Inteligência Artificial = 5\n");
+                c = teclado.nextInt();
+                switch (c) {
+                    case 1:
+                        curso = "Ciência da Computação";
+                        break;
+                    case 2:
+                        curso = "Engenharia de Software";
+                        break;
+                    case 3:
+                        curso = "Engenharia da Computação";
+                        break;
+                    case 4:
+                        curso = "Sistemas de Informação";
+                        break;
+                    case 5:
+                        curso = "Ciência de Dados e Inteligência Artificial";
+                        break;
+                    default:
+                        System.out.println("Essa opção não existe!");
+                        curso = "";
+                        break;
+                }
                 System.out.print("O número de matrícula do aluno que deseja cadastrar: ");
+                teclado.nextLine();
                 m = teclado.nextLine();
-                System.out.print("O ano que o aluno que você deseja cadastrar está na faculdade: ");
+                System.out.print("O ano que o aluno que você deseja cadastrar entrou na faculdade: ");
                 ano = teclado.nextInt();
                 teclado.nextLine();
                 System.out.print("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
@@ -120,20 +147,38 @@ public class Main {
                 teclado.nextLine();
                 do {
                     System.out.println("Por acaso o aluno participa de um projeto de IC? (s/n)");
-                    aux = teclado.nextLine().toLowerCase().charAt(0);
+                    aux = teclado.nextLine().toLowerCase().strip().charAt(0);
                     if (aux == 's') {
                         ic = true;
                     } else if (aux == 'n') {
                         ic = false;
                     }
                 } while (aux != 's' && aux != 'n');
-                turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[nome - 1], c, m, ano, s, ic);
+                turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[nome - 1], curso, m, ano, s, ic);
                 System.out.print("Muito obrigado pelo cadastro!\n");
                 pausar();
                 return true;
             case 4:
                 System.out.print("============================================\n");
                 System.out.println("Modificar aluno");
+                Pessoa p3;
+                int pessoaM;
+                System.out.print("Qual aluno você deseja modificar?\n Digite o número correspondente a ela.");
+                do {
+                    turmaGiraffa.listarAluno();
+                    pessoaM = teclado.nextInt();
+                    teclado.nextLine();
+                    p3 = turmaGiraffa.alunos[pessoaM - 1].getPessoa();
+                } while (p3 == null);
+                teclado.nextLine();
+                System.out.print("Digite o novo curso do aluno que deseja cadastrar: ");
+                String novoC = teclado.nextLine();
+                System.out.print("Digite a nova matrícula do aluno: ");
+                String novoM = teclado.nextLine();
+                System.out.print("Digite o novo ano que o aluno entrou na faculdade: ");
+                int novoA = teclado.nextInt();
+                teclado.nextLine();
+                // falta criar esse metodo - turmaGiraffa.modificarAluno(turmaGiraffa.alunos[pessoaM - 1], novoC, novoM, novoA);
                 pausar();
                 return true;
             case 5:
@@ -178,9 +223,8 @@ public class Main {
                 int y;
                 System.out.print("============================================\n");
                 System.out.print("Qual lista você deseja?\n" +
-                        "1 - Pessoas\n" +
-                        "2 - Alunos\n" +
-                        "3 - Bolsistas\n" +
+                        "1 - Alunos\n" +
+                        "2 - Bolsistas\n" +
                         "0 - Voltar\n" +
                         "> ");
                 y = teclado.nextInt();
@@ -188,15 +232,10 @@ public class Main {
                 switch (y) {
                     case 1:
                         System.out.print("============================================\n");
-                        System.out.print("Aqui estão as pessoas cadastradas: \n");
-                        turmaGiraffa.listarPessoas();
-                        break;
-                    case 2:
-                        System.out.print("============================================\n");
                         System.out.print("Aqui estão os alunos cadastrados: \n");
                         turmaGiraffa.listarAluno();
                         break;
-                    case 3:
+                    case 2:
                         System.out.print("============================================\n");
                         System.out.print("Aqui estão os alunos bolsistas cadastrados: \n");
                         turmaGiraffa.listarBolsistas();
@@ -204,7 +243,7 @@ public class Main {
                     case 0:
                         break;
                     default:
-                        System.out.println("Falso");
+                        System.out.println("Não existe essa opção");
                         break;
                     }
                 pausar();
@@ -217,17 +256,26 @@ public class Main {
                 return true;
             case 11:
                 System.out.print("============================================\n");
-                System.out.println("Contar vogais nos nomes cadastrados");
+                System.out.print("A quantidade de vogais nos nomes dos alunos é: ");
+                System.out.println(turmaGiraffa.contVogal());
                 pausar();
                 return true;
             case 12:
                 System.out.print("============================================\n");
-                System.out.println("Percentual de alunos por curso");
+                if (turmaGiraffa.qtdAlunos == 0) {
+                    System.out.println("Não existem alunos para ser calculado o percentual");
+                }
+                turmaGiraffa.qtdPorCurso();
                 pausar();
                 return true;
             case 13:
                 System.out.print("============================================\n");
                 System.out.println("Média de idade dos alunos");
+                if (turmaGiraffa.alunos.length == 0) {
+                    System.out.println("Não existem alunos cadastrados, impossível fazer a média de idades.");
+                    return true;
+                }
+                turmaGiraffa.mediaIdade();
                 pausar();
                 return true;
             case 14:
@@ -271,7 +319,6 @@ public class Main {
                 return true;
         }
     }
-
     public static void pausar(){
         System.out.println("> Pressione ENTER para continuar...");
         teclado.nextLine();
