@@ -55,7 +55,7 @@ public class Main {
 
     public static boolean menuOpcao(int x) {
         switch (x) {
-            case 1:
+           case 1:
                 System.out.print("============================================\n");
                 System.out.print("Digite o nome da pessoa que deseja cadastrar: ");
                 String n = teclado.nextLine();
@@ -65,7 +65,42 @@ public class Main {
                 int i = teclado.nextInt();
                 teclado.nextLine();
                 turmaGiraffa.cadastrarPessoa(n, l, i);
-                System.out.println("Muito obrigado pelo cadastro!");
+                String c, m;
+                int ano, s;
+                char aux;
+                boolean ic = false;
+                System.out.print("============================================\n");
+                System.out.print("Agora vamos cadastrar esta pessoa como aluno no nosso sistema.\n");
+                System.out.print("O curso do aluno que deseja cadastrar: ");
+                c = teclado.nextLine();
+                System.out.print("O número de matrícula do aluno que deseja cadastrar: ");
+                m = teclado.nextLine();
+                System.out.print("O ano que o aluno que você deseja cadastrar está na faculdade: ");
+                ano = teclado.nextInt();
+                teclado.nextLine();
+                System.out.print("O semestre que o aluno que você deseja cadastrar está na faculdade: ");
+                s = teclado.nextInt();
+                teclado.nextLine();
+                do {
+                    System.out.println("Por acaso o aluno participa de um projeto de IC? (s/n)");
+                    aux = teclado.nextLine().toLowerCase().charAt(0);
+                    if (aux == 's') {
+                        ic = true;
+                    } else if (aux == 'n') {
+                        ic = false;
+                    }
+                } while (aux != 's' && aux != 'n');
+                turmaGiraffa.cadastrarAluno(turmaGiraffa.pessoas[turmaGiraffa.getQtdPessoas() - 1], c, m, ano, s, ic);
+                if (ic) {
+                    System.out.print("============================================\n");
+                    System.out.println("Notamos que o aluno cadastrado já está em algum projeto, vamos cadastrá-lo como bolsista.");
+                    System.out.print("O nome do projeto que você deseja cadastrar: ");
+                    String prAluno = teclado.nextLine();
+                    System.out.print("O nome do orientador do aluno que você deseja cadastrar: ");
+                    String orAluno = teclado.nextLine();
+                    turmaGiraffa.cadastrarBolsistaIC(turmaGiraffa.alunos[turmaGiraffa.getQtdAlunos() - 1], prAluno, orAluno);
+                }
+                System.out.print("Muito obrigado pelo cadastro!\n");
                 pausar();
                 return true;
             case 2:
