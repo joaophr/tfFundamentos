@@ -1,6 +1,7 @@
 public class Turma{
     Pessoa[] pessoas;
     Aluno[] alunos;
+    Aluno[] listaChamada;
     AlunoBolsistaIC[] bolsistas;
     int qtdPessoas;
     int qtdAlunos;
@@ -108,7 +109,7 @@ public class Turma{
             for(int i = 0; i < bolsistas.length; i++){
                 bolsistaAux[i] = bolsistas[i];
             }
-            bolsistas[bolsistas.length] = x;
+            bolsistaAux[bolsistas.length] = x;
             this.bolsistas = bolsistaAux;
         }else{
             bolsistas[qtdBolsistas] = x;
@@ -128,7 +129,7 @@ public class Turma{
     public int getQtdBolsistas(){return qtdBolsistas;}
     //endregion
    
-   //region [específicos]
+   //region [Específicos]
     public String nomeLongo() {
         int aux = 0;
         String aux2 = "Não Existe";
@@ -189,4 +190,33 @@ public class Turma{
         System.out.println("O percentual de alunos que cursam Ciência de dados e Inteligência Artificial é: " + (double) cdIa / qtdAlunos * 100 + "%");
     }
 
+    public void criarAtualizarListaChamada(){
+        listaChamada = new Aluno[qtdAlunos];
+        for(int i = 0; i < qtdAlunos; i++){
+            listaChamada[i] = alunos[i];
+        }
+
+        for(int i = 0; i < listaChamada.length - 1; i++){
+            for(int j = 0; j < listaChamada.length - 1; j++){
+                String nomeAtual = listaChamada[j].getPessoa().getNome();
+                String nomeProximo = listaChamada[j + 1].getPessoa().getNome();
+                if(nomeAtual.compareTo(nomeProximo) > 0){
+                    Aluno aux = listaChamada[j];
+                    listaChamada[j] = listaChamada[j + 1];
+                    listaChamada[j + 1] = aux;
+                }
+            }
+        }
+    }
+
+    public void exibirListaChamada(){
+        if(listaChamada == null || listaChamada.length == 0){
+            System.out.println("A lista de chamada ainda não foi criada.");
+            return;
+        }
+        System.out.printf("%-20s %-12s %s%n", "Nome", "Matrícula", "Curso");
+        for(Aluno a: listaChamada){
+            System.out.printf("%-20s %-12s %s%n", a.getPessoa().getNome(), a.getMatricula(), a.getCurso());
+        }
+    }
 }
