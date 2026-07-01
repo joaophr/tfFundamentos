@@ -1,4 +1,5 @@
 public class Turma{
+    //Estes são os arrays que irão guardar todos os objetos para futuras funções
     Pessoa[] pessoas;
     Aluno[] alunos;
     Aluno[] listaChamada;
@@ -7,17 +8,27 @@ public class Turma{
     int qtdAlunos;
     int qtdBolsistas;
 
-
+    //Constructor da classe turma
     public Turma(int tam){
         pessoas = new Pessoa[tam];
         alunos = new Aluno[tam];
         bolsistas = new AlunoBolsistaIC[tam];
+        registros = new AcompanhamentoIA[tam];
         qtdPessoas = 0;
         qtdAlunos = 0;
         qtdBolsistas = 0;
     }
 
-    //Funções pessoa
+    /*
+        Os métodos a seguir todos funcionam do mesmo jeito, para objetos diferentes
+        -Cadastrar: Cria um objeto com os parâmetros passados e chama inserirObjeto
+        -Inserir: Cria um array auxiliar com 1 a mais de tamanho, copia o array pro auxiliar e adiciona o objeto passado como última posição
+        -Existe: Checa se tal objeto existe
+        -Modificar: Modifica o objeto selecionado com novos parâmetros
+        -Listar: Imprime todos os objetos do array nesta formatação "Posição - Nome"
+    */
+
+    //Pessoas 
     public void cadastrarPessoa(String n, String l, int i){
         Pessoa p1 = new Pessoa(n, i, l);
         inserirPessoa(p1);
@@ -33,7 +44,6 @@ public class Turma{
         System.out.println("Esta pessoa nao existe. Tente novamente!");
         return null;
     }
-
 
     private void inserirPessoa(Pessoa p){
         if(qtdPessoas == pessoas.length){
@@ -60,7 +70,7 @@ public class Turma{
         }
     }
 
-    //Funções aluno
+    //Aluno
     public void cadastrarAluno(Pessoa p, String c, String m, int ano, int s, boolean ic){
         Aluno a1 = new Aluno(p, c, m, ano, s, ic);
         inserirAluno(a1);
@@ -90,13 +100,21 @@ public class Turma{
         }
     }
 
+    public void modificarAluno(Aluno a, String novoCurso, String novaMatricula, int novoAno, int novoSemestre, boolean novoIC){
+        a.setCurso(novoCurso);
+        a.setMatricula(novaMatricula);
+        a.setAno(novoAno);
+        a.setSemestre(novoSemestre);
+        a.setEIc(novoIC);
+    }
+    
     public void listarAluno() {
         for (int i = 0; i < qtdAlunos; i++) {
             System.out.println(i+1 + " - " + alunos[i].getPessoa().getNome());
         }
     }
 
-    //Funções bolsista
+    //Bolsistas
     public void cadastrarBolsistaIC(Aluno paluno, String pProjeto, String pOrientador ){
         AlunoBolsistaIC alunoIc1 = new AlunoBolsistaIC(paluno, pProjeto, pOrientador);
         inserirAlunoBolsista(alunoIc1);
@@ -122,20 +140,24 @@ public class Turma{
         }
     }
 
+    //Registros
+    public void registrarAcompanhamentoIA(Aluno pAluno ,int pAtivEntregue, int pAtivIA, int pAtivExplica, int pCodigoMod, int pCodigoExtra){
+        AcompanhamentoIA acompIA1 = new AcompanhamentoIA(pAluno, pAtivEntregue, pAtivIA, pAtivExplica, pCodigoMod, pCodigoExtra);
+        inserirAcompanhamentoIA(acompIA1);
+    }
 
-    //region [Gets]
+    //Gets, caso queiramos acessar estas informações no Main, por exemplo
     public int getQtdPessoas(){return qtdPessoas;}
     public int getQtdAlunos(){return qtdAlunos;}
     public int getQtdBolsistas(){return qtdBolsistas;}
-    //endregion
    
-   //region [Específicos]
+    //Aqui contamos a quantidade de letras do primeiro nome e comparamos todos os outros tamanhos com ele
     public String nomeLongo() {
         int aux = 0;
         String aux2 = "Não Existe";
         for (Aluno al : alunos) {
             if (al == null) {
-             break;
+                break;
             }
             if (al.getPessoa().getNome().length() > aux) {
                 aux = al.getPessoa().getNome().length();
@@ -145,6 +167,7 @@ public class Turma{
         return aux2;
     }
 
+    //Nada de mais nesse método, percorremos o vator e somamos as idades, depois dividimos pela quantidade de alunos
     public double mediaIdade() {
         int soma = 0;
         for (Aluno aluno: alunos){
@@ -154,13 +177,14 @@ public class Turma{
     }
 
     public int contVogal() {
+        //Percorremos todo o vetor de aluno, apenas contando as vogais
         int qtdVogais = 0;
         String vogais = "aeiou";
 
         for (Pessoa pessoa : pessoas) {
             String nome = pessoa.getNome().toLowerCase();
             for (int i = 0; i < nome.length(); i++) {
-                if (vogais.contains(String.valueOf(nome.charAt(i)))) { // converte o char pra string pra comparar
+                if (vogais.contains(String.valueOf(nome.charAt(i)))) { //Converte o char pra string pra comparar
                     qtdVogais++;
                 }
             }
@@ -169,6 +193,7 @@ public class Turma{
     }
 
     public void qtdPorCurso() {
+        //Cria uma variável para a quantidade de cada curso, percorremos todo o vetor de alunos e contamos quantos tem em cada curso, depois fazemos a média.
         int cc = 0, es = 0, ec = 0, si = 0, cdIa = 0;
         for (Aluno aluno: alunos) {
             if (aluno.getCurso().equals("Ciência da Computação")) {
@@ -185,17 +210,19 @@ public class Turma{
         }
         System.out.println("O percentual de alunos que cursam Ciência da Computação é: " + (double) cc / qtdAlunos * 100 + "%");
         System.out.println("O percentual de alunos que cursam Engenharia de Software é: " + (double) es / qtdAlunos * 100 + "%");
-        System.out.println("O percentual de alunos que cursam Engenharia da Computação é: " + (double) ec / qtdAlunos * 100 + "%");
+        System.out.println("O percentual de alunos que cursam Engenharia da Computação é: " + (double)   ec / qtdAlunos * 100 + "%");
         System.out.println("O percentual de alunos que cursam Sistemas de Informação é: " + (double) si / qtdAlunos * 100 + "%");
         System.out.println("O percentual de alunos que cursam Ciência de dados e Inteligência Artificial é: " + (double) cdIa / qtdAlunos * 100 + "%");
     }
 
     public void criarAtualizarListaChamada(){
+        //Sempre é criado uma lista nova, deletando a lista antiga
         listaChamada = new Aluno[qtdAlunos];
         for(int i = 0; i < qtdAlunos; i++){
             listaChamada[i] = alunos[i];
         }
 
+        //Organiza o array utilizando o método bubble sort. Funciona porquê o método compareTo compara, lexicograficamente, ou seja, em ordem alfabética. Ele retorna um número negativo se a palavra vem antes, 0 se são iguais e positivo se ela vier depois
         for(int i = 0; i < listaChamada.length - 1; i++){
             for(int j = 0; j < listaChamada.length - 1; j++){
                 String nomeAtual = listaChamada[j].getPessoa().getNome();
@@ -209,6 +236,7 @@ public class Turma{
         }
     }
 
+    //Exibe a lista formatada, já em formato de tabela.
     public void exibirListaChamada(){
         if(listaChamada == null || listaChamada.length == 0){
             System.out.println("A lista de chamada ainda não foi criada.");
