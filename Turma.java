@@ -4,9 +4,11 @@ public class Turma{
     Aluno[] alunos;
     Aluno[] listaChamada;
     AlunoBolsistaIC[] bolsistas;
+    AcompanhamentoIA[] registros;
     int qtdPessoas;
     int qtdAlunos;
     int qtdBolsistas;
+    int qtdRegistros;
 
     //Constructor da classe turma
     public Turma(int tam){
@@ -17,6 +19,7 @@ public class Turma{
         qtdPessoas = 0;
         qtdAlunos = 0;
         qtdBolsistas = 0;
+        qtdRegistros = 0;
     }
 
     /*
@@ -65,7 +68,7 @@ public class Turma{
     }
 
     public void listarPessoas(){
-        for(int i = 0; i < qtdPessoas;i++){
+        for(int i = 0; i < qtdPessoas; i++){
                 System.out.println((i + 1) + " - " + pessoas[i].getNome());
         }
     }
@@ -77,14 +80,14 @@ public class Turma{
         qtdAlunos++;
     }
 
-    public Aluno alunoExiste(String nome){
-        for(Aluno i: alunos){
-            if(i != null && i.getPessoa().getNome().equals(nome)){
-                return i;
+    public void alunoExiste(String matricula){
+        for(int i = 0; i < alunos.length; i++){
+            if(alunos[i] != null && alunos[i].getMatricula().equals(matricula)){
+                System.out.println(alunos[i].getPessoa().getNome() + " está cadastrado e está cursando: " + alunos[i].getCurso());
+                return;
             }
         }
-        System.out.println("Este aluno nao existe. Tente novamente!");
-        return null;
+        System.out.println("Este aluno ainda não foi cadastrado no nosso sistema.");
     }
 
     private void inserirAluno(Aluno p){
@@ -135,7 +138,7 @@ public class Turma{
     }
 
     public void listarBolsistas(){
-        for(int i = 0; i < qtdBolsistas;i++){
+        for(int i = 0; i < qtdBolsistas; i++){
             System.out.println((i + 1) + " - " + bolsistas[i].getAluno().getPessoa().getNome());
         }
     }
@@ -144,6 +147,26 @@ public class Turma{
     public void registrarAcompanhamentoIA(Aluno pAluno ,int pAtivEntregue, int pAtivIA, int pAtivExplica, int pCodigoMod, int pCodigoExtra){
         AcompanhamentoIA acompIA1 = new AcompanhamentoIA(pAluno, pAtivEntregue, pAtivIA, pAtivExplica, pCodigoMod, pCodigoExtra);
         inserirAcompanhamentoIA(acompIA1);
+        qtdRegistros++;
+    }
+
+    private void inserirAcompanhamentoIA(AcompanhamentoIA x){
+        if(qtdRegistros == registros.length){
+            AcompanhamentoIA[] registrosAux = new AcompanhamentoIA[registros.length + 1];
+            for(int i = 0; i < registros.length; i++){
+                registrosAux[i] = registros[i];
+            }
+            registrosAux[registros.length] = x;
+            this.registros = registrosAux;
+        }else{
+            registros[qtdRegistros] = x;
+        }
+    }
+
+    public void listarRegistros(){
+        for(int i = 0; i < qtdBolsistas; i++){
+            System.out.println((i + 1) + " - " + registros[i].getAluno().getPessoa().getNome());
+        }
     }
 
     //Gets, caso queiramos acessar estas informações no Main, por exemplo
