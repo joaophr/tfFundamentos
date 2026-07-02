@@ -90,6 +90,15 @@ public class Turma{
         System.out.println("Este aluno ainda não foi cadastrado no nosso sistema.");
     }
 
+    public boolean matriculaExiste(String matricula){
+        for (Aluno aluno : alunos) {
+            if (aluno.getMatricula().equals(matricula)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void inserirAluno(Aluno p){
         if(qtdAlunos == alunos.length){
             Aluno[] alunosAux = new Aluno[alunos.length + 1];
@@ -137,6 +146,11 @@ public class Turma{
         }
     }
 
+    public void modificarBolsistaIC(AlunoBolsistaIC b, String novoProjeto, String novoOrientador) {
+            b.setProjeto(novoProjeto);
+            b.setOrientador(novoOrientador);
+    }
+
     public void listarBolsistas(){
         for(int i = 0; i < qtdBolsistas; i++){
             System.out.println((i + 1) + " - " + bolsistas[i].getAluno().getPessoa().getNome());
@@ -148,6 +162,15 @@ public class Turma{
         AcompanhamentoIA acompIA1 = new AcompanhamentoIA(pAluno, pAtivEntregue, pAtivIA, pAtivExplica, pCodigoMod, pCodigoExtra);
         inserirAcompanhamentoIA(acompIA1);
         qtdRegistros++;
+        acompIA1.calcularRisco();
+    }
+
+    public void modificarAcompanhamentoIA(AcompanhamentoIA Aluno ,int novoAtivEntregue, int novoAtivIA, int novoAtivExplica, int novoCodigoMod, int novoCodigoExtra){
+        Aluno.setAtivEntregue(novoAtivEntregue);
+        Aluno.setAtivIA(novoAtivIA);
+        Aluno.setAtivExplica(novoAtivExplica);
+        Aluno.setCodigoMod(novoCodigoMod);
+        Aluno.setCodigoExtra(novoCodigoExtra);
     }
 
     private void inserirAcompanhamentoIA(AcompanhamentoIA x){
@@ -164,8 +187,16 @@ public class Turma{
     }
 
     public void listarRegistros(){
-        for(int i = 0; i < qtdBolsistas; i++){
-            System.out.println((i + 1) + " - " + registros[i].getAluno().getPessoa().getNome());
+        for(int i = 0; i < qtdRegistros; i++){
+            System.out.println((i + 1) + " - " + registros[i].getAluno().getPessoa().getNome() + " - Matrícula: " + registros[i].getAluno().getMatricula());
+        }
+    }
+
+    public void listarRiscoAlto(){
+        for (AcompanhamentoIA aluno: registros) {
+            if (aluno.getRisco().equals("Alto")) {
+                System.out.println(aluno.getAluno().getPessoa().getNome() + " - " + aluno.getAluno().getMatricula());
+            }
         }
     }
 

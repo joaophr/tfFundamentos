@@ -12,12 +12,15 @@ public class AcompanhamentoIA {
         aCodigoMod = pCodigoMod;
         aCodigoExtra = pCodigoExtra;
         aNivelRisco = "";
+    }
+
+    public void calcularRisco() {
         ativTotais = aAtivIA + aAtivEntregue;
 
         double entendimento;
-        if(aAtivIA == 0){
+        if (aAtivIA == 0) {
             entendimento = 1.0;
-        }else{
+        } else {
             entendimento = (double) aAtivExplica / aAtivIA;
         }
         double usoIA = (double) aAtivIA / ativTotais;
@@ -26,15 +29,19 @@ public class AcompanhamentoIA {
 
         risco = usoIA * 30 + (1 - entendimento) * 40 + codigosMod * 15 + codigosExtras * 8;
 
-        if(risco < 30){
+        if (risco < 30) {
             aNivelRisco = "Baixo";
-        }else if(risco < 70){
+        } else if (risco < 70) {
             aNivelRisco = "Moderado";
-        }else{
+        } else {
             aNivelRisco = "Alto";
         }
     }
-
+    public void setAtivEntregue(int n) {aAtivEntregue = n; calcularRisco();}
+    public void setAtivIA(int n){aAtivIA = n; calcularRisco();}
+    public void setAtivExplica(int n){aAtivExplica = n; calcularRisco();}
+    public void setCodigoMod(int n){aCodigoMod = n; calcularRisco();}
+    public void setCodigoExtra(int n){aCodigoExtra = n; calcularRisco();}
     public Aluno getAluno(){return aAluno;}
     public String getRisco(){return aNivelRisco;}
 }
