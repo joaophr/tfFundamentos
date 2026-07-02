@@ -44,4 +44,7 @@ public class AcompanhamentoIA {
     public void setCodigoExtra(int n){aCodigoExtra = n; calcularRisco();}
     public Aluno getAluno(){return aAluno;}
     public String getRisco(){return aNivelRisco;}
+    public int getCodigoMod(){return aCodigoMod;}
+    public int getCodigoExtra(){return aCodigoExtra;}
+    public int getAtivTotais(){return ativTotais;}
 }

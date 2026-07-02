@@ -301,4 +301,52 @@ public class Turma{
             System.out.printf("%-20s %-12s %s%n", a.getPessoa().getNome(), a.getMatricula(), a.getCurso());
         }
     }
+
+    //Inovação
+    public void recomendIA(AcompanhamentoIA y){
+        if(y.getRisco().equalsIgnoreCase("Baixo")){
+            System.out.println(y.getAluno().getPessoa().getNome() +  " está com risco baixo, não tens que se preocupar.");
+            if(((double) y.getCodigoExtra()/y.getAtivTotais()) * 100 > 50){
+                System.out.println("Notamos, porém, que o aluno está utilizando muitos conteúdos que não foram ensinados nas aulas.\nPeça que ele foque nos conteúdos atuais, e que mesmo ele já conhecendo, sempre tem algo novo pra aprender");
+            }
+        }else if(y.getRisco().equalsIgnoreCase("Moderado")){
+            System.out.println(y.getAluno().getPessoa().getNome() + " está com risco moderado, recomendamos atenção docente.");
+            if(((double) y.getCodigoExtra()/y.getAtivTotais()) * 100 > 50){
+                System.out.println("Notamos, também, que o aluno está utilizando muitos conteúdos que não foram ensinados nas aulas.\nIsso pode sinalizar o desengajamento ou o uso de IA. Independente, peça que o contexto seja aplicado, e que 'não ponha a carroça na frente dos bois.'");
+            }
+            if(((double) y.getCodigoMod()/y.getAtivTotais()) * 100 < 50){
+                System.out.println("Outro ponto de atenção é a falta de autonomia deste aluno. Isso é indício de um início a dependência de IA, sugerimos conversar com ele para isso não se agravar.");
+            }
+        }else if(y.getRisco().equalsIgnoreCase("Alto")){
+            System.out.println(y.getAluno().getPessoa().getNome() + " está com o risco alto, recomendamos intervenção docente imediata.");
+            if(((double) y.getCodigoExtra()/y.getAtivTotais()) * 100 > 50){
+                System.out.println("O aluno está mostrando muito código extra. Junto com a falta de explicação, isso é um sinal de copia e cola da IA. Recomendamos falar e auxiliá-lo a fazer exercícios mais simples.");
+            }
+            if(((double) y.getCodigoMod()/y.getAtivTotais()) * 100 < 50){
+                System.out.println("O aluno está muito mal em modificar códigos sozinho. Recomendamos imediatamente a revisão dos conceitos básicos e prática de trechos de código.");
+            }
+        }
+    }
+
+    public void relatorioGeralRisco() {
+
+    if (qtdRegistros == 0) {
+        System.out.println("Nenhum acompanhamento de IA foi registrado.");
+        return;
+    }
+
+    System.out.printf("%-20s %-12s %-45s %-10s%n",
+            "Nome", "Matrícula", "Curso", "Risco");
+    System.out.println("----------------------------------------------------------------------------------------------");
+
+    for (int i = 0; i < qtdRegistros; i++) {
+        AcompanhamentoIA reg = registros[i];
+
+        System.out.printf("%-20s %-12s %-45s %-10s%n",
+                reg.getAluno().getPessoa().getNome(),
+                reg.getAluno().getMatricula(),
+                reg.getAluno().getCurso(),
+                reg.getRisco());
+    }
+}
 }
