@@ -24,6 +24,8 @@ public class Main {
 
         turmaGiraffa.cadastrarBolsistaIC(turmaGiraffa.alunos[1], "MALTA", "Lucas");
         turmaGiraffa.cadastrarBolsistaIC(turmaGiraffa.alunos[3], "Dados", "César");
+        turmaGiraffa.registrarAcompanhamentoIA(turmaGiraffa.alunos[0], 15, 10, 15, 0, 0);
+        System.out.print(turmaGiraffa.registros[0].getRisco());
 
         //menuDisplay marcado para sempre aparecer, exceto se a pessoa selecionar 0
         do{
@@ -38,19 +40,18 @@ public class Main {
                 "1 - Cadastrar pessoa\n" +
                 "2 - Modificar pessoa\n" +
                 "3 - Modificar aluno\n" +
-                "ADICIONAR - Procurar aluno\n" + 
-                "4 - Cadastrar bolsista de IC\n" +
-                "5 - Modificar bolsista de IC\n" +
-                "6 - Registrar acompanhamento do uso de IA\n" +
-                "7 - Modificar acompanhamento do uso de IA\n" +
-                "8 - Listar\n" + //perguntar: listar o que, pessoas, alunos, bolsistas...
-                "9 - Mostrar nome mais longo\n" +
-                "10 - Contar vogais nos nomes cadastrados\n" +
-                "11 - Percentual de alunos por curso\n" +
-                "12 - Média de idade dos alunos\n" +
-                "13 - Criar ou atualizar lista de chamada\n" +
-                "14 - Exibir lista de chamada\n" +
-                "15 - Calcular risco pedagógico relacionado ao uso de IA\n" +
+                "4 - Procurar aluno\n" + 
+                "5 - Cadastrar bolsista de IC\n" +
+                "6 - Modificar bolsista de IC\n" +
+                "7 - Registrar acompanhamento do uso de IA\n" +
+                "8 - Modificar acompanhamento do uso de IA\n" +
+                "9 - Listar\n" + //perguntar: listar o que, pessoas, alunos, bolsistas...
+                "10 - Mostrar nome mais longo\n" +
+                "11 - Contar vogais nos nomes cadastrados\n" +
+                "12 - Percentual de alunos por curso\n" +
+                "13 - Média de idade dos alunos\n" +
+                "14 - Criar ou atualizar lista de chamada\n" +
+                "15 - Exibir lista de chamada\n" +
                 "16 - Exibir relatório geral de risco por aluno\n" +
                 "17 - Exibir alunos em risco alto\n" +
                 "18 - Inovação do grupo\n" +
@@ -168,6 +169,8 @@ public class Main {
                 System.out.print("============================================\n");
                 Pessoa p3;
                 int pessoaM;
+                String novoC;
+                boolean novoIC = false;
                 System.out.print("Qual aluno você deseja modificar?\nDigite o número correspondente a ele.\n");
                 do {
                     turmaGiraffa.listarAluno();
@@ -175,17 +178,76 @@ public class Main {
                     teclado.nextLine();
                     p3 = turmaGiraffa.alunos[pessoaM - 1].getPessoa();
                 } while (p3 == null);
-                System.out.print("Digite o novo curso do aluno que deseja cadastrar: ");
-                String novoC = teclado.nextLine();
+                System.out.print("O curso do aluno que deseja cadastrar:\n" +
+                        "1 - Ciência da Computação\n" +
+                        "2 - Engenharia de Software\n" +
+                        "3 - Engenharia da Computação\n" +
+                        "4 - Sistemas de Informação\n" +
+                        "5 - Ciência de Dados e Inteligência Artificial\n" +
+                        "> ");
+                c = teclado.nextInt();
+                switch (c) {
+                    case 1:
+                        novoC = "Ciência da Computação";
+                        break;
+                    case 2:
+                        novoC = "Engenharia de Software";
+                        break;
+                    case 3:
+                        novoC = "Engenharia da Computação";
+                        break;
+                    case 4:
+                        novoC = "Sistemas de Informação";
+                        break;
+                    case 5:
+                        novoC = "Ciência de Dados e Inteligência Artificial";
+                        break;
+                    default:
+                        System.out.println("Essa opção não existe!");
+                        novoC = "";
+                        break;
+                }
                 System.out.print("Digite a nova matrícula do aluno: ");
+                teclado.nextLine();
                 String novoM = teclado.nextLine();
                 System.out.print("Digite o novo ano que o aluno entrou na faculdade: ");
                 int novoA = teclado.nextInt();
                 teclado.nextLine();
-                //turmaGiraffa.modificarAluno(turmaGiraffa.alunos[pessoaM - 1], novoC, novoM, novoA, novoS, novoIC);
+                System.out.print("Digite o novo semestre que o aluno entrou na faculdade: ");
+                int novoS = teclado.nextInt();
+                teclado.nextLine();
+                do {
+                    System.out.println("Por acaso o aluno começou a participar de algum projeto de IC? (s/n)");
+                    aux = teclado.nextLine().toLowerCase().charAt(0);
+                    if (aux == 's') {
+                        novoIC = true;
+                    } else if (aux == 'n') {
+                        novoIC = false;
+                    }
+                } while (aux != 's' && aux != 'n');
+                if (novoIC) {
+                    System.out.print("============================================\n");
+                    System.out.println("Notamos que o aluno cadastrado entrou em algum projeto, vamos cadastrá-lo como bolsista.");
+                    System.out.print("O nome do projeto que você deseja cadastrar: ");
+                    String prAluno = teclado.nextLine();
+                    System.out.print("O nome do orientador do aluno que você deseja cadastrar: ");
+                    String orAluno = teclado.nextLine();
+                    turmaGiraffa.cadastrarBolsistaIC(turmaGiraffa.alunos[pessoaM - 1], prAluno, orAluno);
+                }
+                System.out.print("Muito obrigado pelo cadastro!\n");
+                turmaGiraffa.modificarAluno(turmaGiraffa.alunos[pessoaM - 1], novoC, novoM, novoS, novoA, novoIC);
                 pausar();
                 return true;
+
             case 4:
+                String matric = "";
+                System.out.print("============================================\n");
+                System.out.println("Por favor, digite a matrícula que gostaria de checar.");
+                matric = teclado.nextLine();
+                turmaGiraffa.alunoExiste(matric);
+                pausar();
+                return true;
+            case 5:
                 System.out.print("============================================\n");
                 String pr, o;
                 int aux2;
@@ -207,18 +269,24 @@ public class Main {
                 System.out.println("Muito obrigado pelo cadastro!\n");
                 pausar();
                 return true;
-            case 5:
+            case 6:
                 System.out.print("============================================\n");
                 System.out.println("Modificar bolsista de IC");
                 pausar();
                 return true;
-            case 6:
+            case 7:
                 System.out.print("============================================\n");
                 Aluno pAluno;
+                int alunoM;
                 int pAtivEntregue, pAtivIA, pAtivExplica, pCodigoMod, pCodigoExtra;
                 System.out.print("Vamos registrar o uso de IA do aluno!\n");
-                System.out.print("Primeiro, selecione qual aluno gostaria de registrar:");
-                //Selecionar aluno
+                System.out.print("Primeiro, selecione qual aluno gostaria de registrar:\n");
+                do {
+                    turmaGiraffa.listarAluno();
+                    alunoM = teclado.nextInt();
+                    teclado.nextLine();
+                    pAluno = turmaGiraffa.alunos[alunoM - 1];
+                } while (pAluno == null);
                 System.out.print("Quantas atividades foram feitas sem o auxílio de IA: ");
                 pAtivEntregue = teclado.nextInt();
                 teclado.nextLine();
@@ -235,15 +303,15 @@ public class Main {
                 pCodigoExtra = teclado.nextInt();
                 teclado.nextLine();
 
-                //turmaGiraffa.registrarAcompanhamentoIA(pAluno, pAtivEntregue, pAtivIA, pAtivExplica, pCodigoMod, pCodigoExtra);
+                turmaGiraffa.registrarAcompanhamentoIA(pAluno, pAtivEntregue, pAtivIA, pAtivExplica, pCodigoMod, pCodigoExtra);
                 pausar();
                 return true;
-            case 7:
+            case 8:
                 System.out.print("============================================\n");
                 System.out.println("Modificar acompanhamento de IA");
                 pausar();
                 return true;
-            case 8:
+            case 9:
                 int y;
                 System.out.print("============================================\n");
                 System.out.print("Qual lista você deseja?\n" +
@@ -272,19 +340,19 @@ public class Main {
                     }
                 pausar();
                 return true;
-            case 9:
+            case 10:
                 System.out.print("============================================\n");
                 System.out.print("O nome mais longo é: ");
                 System.out.print(turmaGiraffa.nomeLongo() + "\n");
                 pausar();
                 return true;
-            case 10:
+            case 11:
                 System.out.print("============================================\n");
                 System.out.print("A quantidade de vogais nos nomes dos alunos é: ");
                 System.out.println(turmaGiraffa.contVogal());
                 pausar();
                 return true;
-            case 11:
+            case 12:
                 System.out.print("============================================\n");
                 if (turmaGiraffa.qtdAlunos == 0) {
                     System.out.println("Não existem alunos para ser calculado o percentual");
@@ -292,7 +360,7 @@ public class Main {
                 turmaGiraffa.qtdPorCurso();
                 pausar();
                 return true;
-            case 12:
+            case 13:
                 System.out.print("============================================\n");
                 if (turmaGiraffa.alunos.length == 0) {
                     System.out.println("Não existem alunos cadastrados, impossível fazer a média de idades.");
@@ -302,29 +370,24 @@ public class Main {
                 System.out.print(turmaGiraffa.mediaIdade() + "\n");
                 pausar();
                 return true;
-            case 13:
+            case 14:
                 System.out.print("============================================\n");
                 turmaGiraffa.criarAtualizarListaChamada();
                 System.out.println("Lista de chamada criada/atualizada!");
                 pausar();
                 return true;
-            case 14:
+            case 15:
                 System.out.print("============================================\n");
                 System.out.println("Aqui está a chamada:");
                 turmaGiraffa.exibirListaChamada();
                 pausar();
                 return true;
-            case 15:
-                System.out.print("============================================\n");
-                System.out.println("Calcular risco pedagógico por IA");
-                pausar();
-                return true;
-            case 16:
+            case 16://Deixar pra depois
                 System.out.print("============================================\n");
                 System.out.println("Exibir relatório geral de risco por aluno");
                 pausar();
                 return true;
-            case 17:
+            case 17://Deixar pra depois
                 System.out.print("============================================\n");
                 System.out.println("Exibir alunos em risco alto");
                 pausar();
