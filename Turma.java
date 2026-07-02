@@ -93,10 +93,11 @@ public class Turma{
     public boolean matriculaExiste(String matricula){
         for (Aluno aluno : alunos) {
             if (aluno.getMatricula().equals(matricula)) {
-                return false;
+                System.out.println("Essa matricula já existe, tente novamente!");
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private void inserirAluno(Aluno p){
